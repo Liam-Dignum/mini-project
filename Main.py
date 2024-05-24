@@ -107,7 +107,7 @@ while True:
             for i,item in enumerate(couriers, start=0):
                     print(i,item)
             choice = input("Select courier")
-            if len(couriers) > choice:
+            if len(couriers) > int(choice):
                 orders.append({"name" : name,"address" : address,"phone_number" : phone_number,"Order_status" :"Pending", "courier" : choice})
             else:
                 orders.append({"name" : name,"address" : address,"phone_number" : phone_number,"Order_status" :"Pending","courier" : None})
@@ -132,13 +132,16 @@ while True:
                 for (i, item) in enumerate(orders, start=0):
                     print(i, item)
                 choice = input("Select order")
-                if choice == int:
+                if choice.isdigit == True:
                     print(orders[int(choice)])
                     for key in orders[choice]:
                         temp_input = input(f"Enter new value for {key}")
                         if temp_input != "":
                             orders[choice][key]= temp_input
-                print(orders)
+                    print(orders)
+                else:
+                    print("Invalid input")
+                
             else:
                 print("No orders to edit\n")
         
