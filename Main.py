@@ -3,7 +3,7 @@ import pickle
 product_menu = "0.Exit program\n1.Print List\n2.Add to list\n3.Edit product in list\n4.Delete from list\n"
 main_menu = "0.Exit Menu\n1.Product menu\n2.Order menu\n3.Courier menu\n"
 order_menu = "0.Exit Menu\n1.Print orders\n2.add order\n3.edit delivery status\n4.edit order\n5.delete order\n"
-courier_menu ="0.Exit Menu\n1.Print couriers\n2.Add courier\n3.Edit courier\n5.Delete courier\n"
+courier_menu ="0.Exit Menu\n1.Print couriers\n2.Add courier\n3.Edit courier\n4.Delete courier\n"
 try:
     with open(r"Data\products_data.txt",'rb') as f:
     
@@ -79,7 +79,7 @@ while True:
                 for i,item in enumerate(products, start=0):
                     print(i,item)
                 choice = input("Select product to delete\n")
-                if choice.isdigit == True and int(choice)<len(products):
+                if choice.isdigit() == True and int(choice)<len(products):
                     
                     products.pop(int(choice))
                     print(products)
@@ -132,12 +132,12 @@ while True:
                 for (i, item) in enumerate(orders, start=0):
                     print(i, item)
                 choice = input("Select order")
-                if choice.isdigit == True:
+                if choice.isdigit() == True:
                     print(orders[int(choice)])
-                    for key in orders[choice]:
+                    for key in orders[int(choice)]:
                         temp_input = input(f"Enter new value for {key}")
                         if temp_input != "":
-                            orders[choice][key]= temp_input
+                            orders[int(choice)][key]= temp_input
                     print(orders)
                 else:
                     print("Invalid input")
@@ -150,7 +150,7 @@ while True:
                 for (i, item) in enumerate(orders, start=0):
                     print(i, item)
                     choice = int(input("Select order"))
-                    orders.pop(choice)
+                    orders.pop(int(choice))
                     print(choice) 
                 else:
                     print("No orders to delete\n")
@@ -163,22 +163,29 @@ while True:
             save_exit()
             break
         
-        elif int(choice) == 1: #print products list
+        elif int(choice) == 1: #print courier list
             print(couriers)
         
         elif int(choice) == 2: #add courier to list
             New_courier = input("Enter name for new courier\n")
-            couriers.append(New_courier)
+            New_courier_number = input("Enter phone number for new courier")
+            couriers.append({"Name" : New_courier,"Number" : New_courier_number})
             print(couriers)
 
         elif int(choice) == 3: # Edit
-            if len(couriers) != 0:  
-                for i,item in enumerate(couriers, start=0):
-                    print(i,item)
-                choice = int(input("Select courier to edit\n"))
-                New_name = input("Input new name for courier\n")
-                couriers[choice] = New_name
-                print(couriers)
+            if len(couriers) != 0:    
+                for (i, item) in enumerate(couriers, start=0):
+                    print(i, item)
+                choice = input("Select order")
+                if choice.isdigit() == True and int(choice)<len(couriers):
+                    print(couriers[int(choice)])
+                    for key in couriers[int(choice)]:
+                        temp_input = input(f"Enter new value for {key}")
+                        if temp_input != "":
+                            couriers[int(choice)][key]= temp_input
+                    print(couriers)
+                else:
+                    print("Invalid input")
             else:
                 print("No couriers to delete\n")
 
