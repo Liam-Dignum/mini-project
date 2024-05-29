@@ -1,38 +1,78 @@
 import pickle
+import csv
 #declare menu text and load lists from file
 product_menu = "0.Exit program\n1.Print List\n2.Add to list\n3.Edit product in list\n4.Delete from list\n"
 main_menu = "0.Exit Menu\n1.Product menu\n2.Order menu\n3.Courier menu\n"
 order_menu = "0.Exit Menu\n1.Print orders\n2.add order\n3.edit delivery status\n4.edit order\n5.delete order\n"
 courier_menu ="0.Exit Menu\n1.Print couriers\n2.Add courier\n3.Edit courier\n4.Delete courier\n"
+#with open('products_data.csv', mode='w') as file:
+#  # set the headers for the CSV
+#  fieldnames = ['product_name', 'price']
+#  writer = csv.DictWriter(file, fieldnames=fieldnames)
+#  # instruct the writer to know to write the headers
+#  writer.writeheader()
+#  # instruct the writer to write the row
+#  writer.writerow({
+#    'product_name': 'Pepsi',
+#    'price': '80'
+#  })
+#  writer.writerow({
+#    'product_name': 'Coke',
+#    'price': '100'
+#  })
+#  with open("orders_data.csv" ,"wb") as f:
+#        writer = csv.DictWriter(f, fieldnames= orders[0].keys())
+#        writer.writeheader()
+#        writer.writerows(orders)
+#    with open("couriers_data.csv" ,"wb") as f:
+#        writer = csv.DictWriter(f, fieldnames= couriers[0].keys())
+#        writer.writeheader()
+#        writer.writerows(couriers)
 try:
-    with open(r"Data\products_data.txt",'rb') as f:
-    
-        products = pickle.load(f)
+    with open (r"Data\products_data.csv","r") as f:
+        reader = csv.DictReader(f)
+        print(reader)
+        products = list()
+        for row in reader:
+            products.append(row)
+        print(products)
 except:
      products = []
 
 try:
-    with open(r"Data\orders_data.txt",'rb') as f:
-    
-        orders = pickle.load(f)
+    with open (r"Data\orders_data.csv","r") as f:
+        reader = csv.DictReader(f)
+        print(reader)
+        orders = list()
+        for row in reader:
+            orders.append(row)
+        print(orders)
 except:
         orders = []
 try:
-    with open(r"Data\courier_data.txt",'rb') as f:
-    
-        couriers = pickle.load(f)
+    with open (r"Data\couriers_data.csv","r") as f:
+        reader = csv.DictReader(f)
+        print(reader)
+        couriers = list()
+        for row in reader:
+            couriers.append(row)
+        print(couriers)
 except:
         couriers = []
 #save lists to files and exit
 def save_exit():
-    with open(r"Data\products_data.txt",'wb') as f:
-        pickle.dump(products,f)
-    with open(r"Data\orders_data.txt",'wb') as f:
-        pickle.dump(orders,f)
-    with open(r"Data\courier_data.txt",'wb') as f:
-        pickle.dump(couriers,f)
-
-print(products,len(orders))
+    with open(r"Data\products_data.csv" ,"w") as f:
+        writer = csv.DictWriter(f, fieldnames= products[0].keys())
+        writer.writeheader()
+        writer.writerows(products)
+    with open(r"Data\orders_data.csv" ,"w") as f:
+        writer = csv.DictWriter(f, fieldnames= orders[0].keys())
+        writer.writeheader()
+        writer.writerows(orders)
+    with open(r"Data\couriers_data.csv" ,"w") as f:
+        writer = csv.DictWriter(f, fieldnames= couriers[0].keys())
+        writer.writeheader()
+        writer.writerows(couriers)
 while True:
     choice = input(main_menu)
     if choice.isdigit() ==False:
@@ -55,8 +95,9 @@ while True:
             print(products)
         
         elif int(choice) == 2: #add product to list
-            New_product = input("Enter name for new product\n")
-            products.append(New_product)
+            new_product = input("Enter name for new product\n")
+            new_price = input("Enter price for new item")
+            products.append({"product_name" : new_product,"price" : new_price})
             print(products)
 
         elif int(choice) == 3: # Edit
