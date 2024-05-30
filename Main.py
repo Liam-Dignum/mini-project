@@ -1,4 +1,3 @@
-import pickle
 import csv
 #declare menu text and load lists from file
 product_menu = "0.Exit program\n1.Print List\n2.Add to list\n3.Edit product in list\n4.Delete from list\n"
@@ -73,6 +72,7 @@ def save_exit():
         writer = csv.DictWriter(f, fieldnames= couriers[0].keys())
         writer.writeheader()
         writer.writerows(couriers)
+print(products)
 while True:
     choice = input(main_menu)
     if choice.isdigit() ==False:
